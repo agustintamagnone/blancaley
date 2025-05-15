@@ -1,0 +1,14 @@
+# General
+.DS_Store
+node_modules/
+dist/
+.env
+*.log
+
+# Next.js
+.next/
+out/
+
+# Spring Boot
+usuario-service/target/
+*.iml
