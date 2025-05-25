@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function QuienesSomos() {
   return (
-    <section className="relative w-full h-[60vh] overflow-hidden flex items-center">
+    <section id="empresa" className="relative w-full h-[60vh] overflow-hidden flex items-center">
       {/* Imagen de fondo con opacidad */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed opacity-30 -z-10"

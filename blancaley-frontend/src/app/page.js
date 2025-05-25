@@ -4,7 +4,7 @@ import Banner from "@/components/banner";
 import BannerCTA from "@/components/banner-cta";
 import Hero from "@/components/hero";
 import QuienesSomos from "@/components/quienes-somos";
-import ProductList from "@/components/ui/product-list";
+import ProductList from "@/components/product-list";
 import Image from "next/image";
 
 export default function Home() {

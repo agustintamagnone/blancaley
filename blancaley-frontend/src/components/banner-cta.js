@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function BannerCTA() {
   return (
-    <section className="relative w-full border border-orange-500 bg-gradient-to-r from-gray-300 to-white py-12">
+    <section id="contacto" className="relative w-full border border-orange-500 bg-gradient-to-r from-gray-300 to-white py-12">
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
         
         {/* Texto y logo */}

@@ -3,10 +3,12 @@
 import { useEffect, useState } from "react";
 import api from "@/lib/api";
 import Image from "next/image";
-import { Button } from "./button";
+import { Button } from "./ui/button";
+import { useCart } from "./context/cart-context";
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);
+  const { addToCart } = useCart();
 
   useEffect(() => {
     api.get("/products")
@@ -19,7 +21,7 @@ export default function ProductList() {
   }, []);
 
   return (
-    <section className="max-w-7xl mx-auto px-4 p-8">
+    <section id="products" className="max-w-7xl mx-auto px-4 p-8">
       <h2 className="text-4xl text-orange-500 font-extrabold mb-6 text-center">Nuestros Productos</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 items-stretch">
         {products.map((product) => (
@@ -34,7 +36,7 @@ export default function ProductList() {
             <h3 className="text-xl font-semibold">{product.productName}</h3>
             <p className="text-sm text-gray-500 mb-2">{product.productDescription}</p>
             <p className="font-bold text-orange-600 mb-4">${product.productPrice}</p>
-            <Button variant={"default"} size={"sm"}>Agregar a Carrito</Button>
+            <Button onClick={() => addToCart(product)} variant={"default"} size={"sm"}>Agregar a Carrito</Button>
           </div>
         ))}
       </div>

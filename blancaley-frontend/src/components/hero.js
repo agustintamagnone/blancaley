@@ -6,7 +6,7 @@ import { Button } from "./ui/button";
 
 export default function Hero() {
   return (
-    <section className="relative w-full md:h-[95vh] overflow-hidden">
+    <section id="hero" className="relative w-full md:h-[95vh] overflow-hidden">
       {/* Fondo pared */}
       <Image
         src="/pared-blanca.png"

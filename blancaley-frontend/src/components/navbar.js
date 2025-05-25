@@ -1,94 +1,69 @@
 "use client";
 
-import { useState } from "react";
-import Topbar from "./topbar";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ShoppingCart } from "lucide-react";
+import Topbar from "./topbar";
+import CartDrawer from "./cart-drawer";
+import { useCart } from "@/components/context/cart-context";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const { cartItems } = useCart();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   return (
-    <header className="fixed bg-white text-black top-0 left-0 right-0 justify-center bg-opacity-90 mb-40 backdrop-blur-md z-40 shadow-md">
+    <header className="fixed top-0 left-0 right-0 z-40 bg-white shadow-md">
       <Topbar />
-      <div className="justify-center flex flex-row">
+      <div className="flex justify-center">
         <nav className="max-w-[1180px] w-full flex justify-between items-center px-6 py-4">
-          <Image
-            src="/blancaley-pinturas.png"
-            width={150}
-            height={150}
-            alt="Blancaley Icon"
-          />
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
-            <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="p-2 rounded-md"
-            >
-              {menuOpen ? (
-                <X size={24} className="" />
-              ) : (
-                <Menu size={24} className="" />
-              )}
-            </button>
-          </div>
+          <a href="http://localhost:3000">
+            <Image
+              src="/blancaley-pinturas.png"
+              width={150}
+              height={150}
+              alt="Blancaley Icon"
+            />
+          </a>
+
+          {/* Menú principal */}
           <ul className="hidden md:flex justify-center space-x-6 text-lg">
             <li>
-              <a href="#inicio" className="hover:text-gray-400">
-                Inicio
-              </a>
+              <a href="http://localhost:3000">Inicio</a>
             </li>
             <li>
-              <a href="#productos" className="hover:text-gray-400">
-                Productos
-              </a>
+              <a href="#productos">Productos</a>
             </li>
             <li>
-              <a href="#empresa" className="hover:text-gray-400">
-                Empresa
-              </a>
+              <a href="#empresa">Empresa</a>
             </li>
             <li>
-              <a href="#contacto" className="hover:text-gray-400">
-                Contacto
-              </a>
+              <a href="#contacto">Contacto</a>
             </li>
           </ul>
+
+          {/* Ícono carrito */}
+          <div
+            className="relative cursor-pointer"
+            onClick={() => setDrawerOpen(true)}
+          >
+            <ShoppingCart size={28} />
+            {isClient && cartItems.length > 0 && (
+              <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                {cartItems.length}
+              </span>
+            )}
+          </div>
         </nav>
       </div>
 
-      {/* Mobile Menu Drawer */}
-      {menuOpen && (
-        <div className="fixed top-0 left-0 w-full h-screen flex flex-col bg-white text-black items-center justify-center space-y-6 z-50 md:hidden transition-colors duration-300">
-          <button
-            onClick={() => setMenuOpen(false)}
-            className="absolute top-6 right-6"
-          >
-            <X size={30} className="" />
-          </button>
-          <a
-            href="#about"
-            className="text-xl hover:text-gray-400"
-            onClick={() => setMenuOpen(false)}
-          >
-            Productos
-          </a>
-          <a
-            href="#experience"
-            className="text-xl hover:text-gray-400"
-            onClick={() => setMenuOpen(false)}
-          >
-            Empresa
-          </a>
-          <a
-            href="#projects"
-            className="text-xl hover:text-gray-400"
-            onClick={() => setMenuOpen(false)}
-          >
-            Contacto
-          </a>
-        </div>
-      )}
+      {/* Drawer del carrito */}
+      <CartDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
     </header>
   );
 }
