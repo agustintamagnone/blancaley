@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function CheckoutPage() {
-  const { cartItems, total } = useCart();
+  const { cartItems, total, clearCart } = useCart();
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [address, setAddress] = useState("");
