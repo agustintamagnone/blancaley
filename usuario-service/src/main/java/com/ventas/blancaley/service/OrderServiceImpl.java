@@ -1,9 +1,6 @@
 package com.ventas.blancaley.service;
 
-import com.ventas.blancaley.domain.Order;
-import com.ventas.blancaley.domain.OrderItem;
-import com.ventas.blancaley.domain.Product;
-import com.ventas.blancaley.domain.User;
+import com.ventas.blancaley.domain.*;
 import com.ventas.blancaley.dto.OrderItemResponseDTO;
 import com.ventas.blancaley.dto.OrderRequestDTO;
 import com.ventas.blancaley.dto.OrderResponseDTO;
@@ -13,6 +10,7 @@ import com.ventas.blancaley.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -75,35 +73,46 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order createOrderFromDTO(OrderRequestDTO userRequestDTO) {
-
-        User user = userRepository.findByEmail(userRequestDTO.getUserEmail())
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con email: " + userRequestDTO.getUserEmail()));
+    public Order createOrderFromDTO(OrderRequestDTO dto) {
+        User user = userRepository.findByEmail(dto.getUserEmail())
+                .orElseGet(() -> {
+                    User newUser = new User();
+                    newUser.setFirstName("Desconocido"); // o podés incluirlo en el DTO
+                    newUser.setLastName("Desconocido");
+                    newUser.setEmail(dto.getUserEmail());
+                    return userRepository.save(newUser);
+                });
 
         Order order = new Order();
         order.setUser(user);
-        order.setUserName(userRequestDTO.getUserName());
-        order.setUserEmail(userRequestDTO.getUserEmail());
-        order.setAddress(userRequestDTO.getAddress());
+        order.setUserName(dto.getUserName());
+        order.setUserEmail(dto.getUserEmail());
+        order.setAddress(dto.getAddress());
+        order.setStatus(OrderStatus.NUEVO);
+        order.setOrderDate(LocalDateTime.now());
 
-        List<OrderItem> items = userRequestDTO.getItems().stream().map(itemDTO -> {
+        List<OrderItem> items = dto.getItems().stream().map(itemDto -> {
+            Product product = productRepository.findById(itemDto.getProductId())
+                    .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+
             OrderItem item = new OrderItem();
-            item.setProductId(itemDTO.getProductId());
-            item.setQuantity(itemDTO.getQuantity());
-            item.setOrder(order); // vínculo bidireccional
+            item.setProductId(product.getProductId());
+            item.setQuantity(itemDto.getQuantity());
+            item.setOrder(order);
             return item;
         }).toList();
 
         order.setItems(items);
 
-        double total = order.getItems().stream()
-                .mapToDouble(item -> {
-                    Product product = productRepository.findById(item.getProductId()).orElseThrow();
-                    return product.getProductPrice() * item.getQuantity();
+        double total = items.stream()
+                .mapToDouble(i -> {
+                    Product product = productRepository.findById(i.getProductId()).orElseThrow();
+                    return product.getProductPrice() * i.getQuantity();
                 }).sum();
 
         order.setTotalPrice(total);
 
         return orderRepository.save(order);
     }
+
 }
