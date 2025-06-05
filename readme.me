@@ -1,14 +1,33 @@
-# 🧱 Blancaley Pinturas - Sistema de Pedidos - ESPAÑOL
+🛠️ Descripción del Proyecto (Español)
+Blancaley es una aplicación de e-commerce desarrollada como sistema de gestión de pedidos y usuarios, diseñada para una pinturería. El proyecto se basa en una arquitectura de microservicios, separando la lógica de usuarios y productos/pedidos en servicios independientes para facilitar la escalabilidad, el mantenimiento y el despliegue modular.
 
-Aplicación full-stack para venta de pinturas online. Permite agregar productos a un carrito, gestionarlo, y completar el pedido con datos del usuario y envío.
+🚀 Tecnologías Utilizadas
+Java 23
 
-## 🚀 Tecnologías utilizadas
+Spring Boot 3.4.5
 
-- **Frontend**: Next.js, Tailwind CSS, Context API
-- **Backend**: Spring Boot, Swagger, Postman, PostgreSQL, Docker
-- **Estado global**: React Context (CartContext)
-- **Persistencia del carrito**: localStorage
-- **Deploy opcional**: Vercel / Railway / Render
+PostgreSQL
+
+Spring Data JPA
+
+Swagger / Springdoc OpenAPI
+
+Maven
+
+Lombok
+
+Programación orientada a interfaces y buenas prácticas de diseño SOLID
+
+Arquitectura de microservicios
+
+📦 Módulos del sistema
+usuario-service: gestión de usuarios, registro y autenticación.
+
+order-service: gestión de pedidos y cálculo de totales.
+
+product-service: gestion de productos y catalogo.
+
+Cada microservicio tiene su propia API REST documentada con Swagger, y una base de datos aislada para mayor independencia.
 
 ## 🛒 Funcionalidades
 
@@ -18,25 +37,39 @@ Aplicación full-stack para venta de pinturas online. Permite agregar productos 
 - Visualizar resumen de compra antes de finalizar
 - API documentada con Swagger
 
-## 🧪 Para correr el proyecto localmente
+Autor: Agustin Tamagnone
 
-### Backend
 
-```bash
-cd usuario-service
-mvn spring-boot:run
+🛠️ Project Description (English)
+Blancaley is an e-commerce web application built to manage orders and users for a paint store. The project follows a microservices architecture, separating the logic of user management and order/product handling into independent services to ensure scalability, maintainability, and modular deployment.
 
-# 🧱 Blancaley Pinturas - Ordering System - ENGLISH
+🚀 Technologies Used
+Java 23
 
-A full-stack web application for managing paint sales online. Users can add products to a cart, manage quantities, and complete their purchase by entering personal and shipping details.
+Spring Boot 3.4.5
 
-## 🚀 Technologies Used
+PostgreSQL
 
-- **Frontend**: Next.js, Tailwind CSS, React Context API
-- **Backend**: Spring Boot, Swagger (OpenAPI), Postman, PostgreSQL, Docker
-- **Global state management**: React Context (CartContext)
-- **Cart persistence**: localStorage
-- **Optional deploy platforms**: Vercel / Railway / Render
+Spring Data JPA
+
+Swagger / Springdoc OpenAPI
+
+Maven
+
+Lombok
+
+Interface-based programming and SOLID principles
+
+Microservices architecture
+
+📦 System Modules
+usuario-service: handles user registration, authentication, and profile data.
+
+order-service: manages orders, and price calculations.
+
+product-service: manages products and catalog.
+
+Each microservice exposes its own REST API, documented automatically with Swagger, and uses its own database schema to promote loose coupling.
 
 ## 🛒 Features
 
@@ -46,11 +79,5 @@ A full-stack web application for managing paint sales online. Users can add prod
 - View an order summary before confirming
 - Fully documented API with Swagger
 
-## 🧪 Running the project locally
 
-### Backend
-
-```bash
-cd usuario-service
-mvn spring-boot:run
-
+Author: Agustin Tamagnone
