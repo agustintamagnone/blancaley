@@ -65,7 +65,13 @@ public class OrderServiceImpl implements OrderService {
                 order.getFirstName(),
                 order.getLastName(),
                 order.getUserEmail(),
-                order.getAddress(),
+                order.getPhoneNumber(),
+                order.getStreet(),
+                order.getStreetNumber(),
+                order.getCity(),
+                order.getState(),
+                order.getZipCode(),
+                order.getNeighborhood(),
                 order.getOrderDate(),
                 order.getStatus().name(),
                 itemDTOs,
@@ -89,7 +95,13 @@ public class OrderServiceImpl implements OrderService {
         order.setFirstName(dto.getFirstName());
         order.setLastName(dto.getLastName());
         order.setUserEmail(dto.getUserEmail());
-        order.setAddress(dto.getAddress());
+        order.setPhoneNumber(dto.getPhoneNumber());
+        order.setStreet(dto.getStreet());
+        order.setStreetNumber(dto.getStreetNumber());
+        order.setCity(dto.getCity());
+        order.setState(dto.getState());
+        order.setZipCode(dto.getZipCode());
+        order.setNeighborhood(dto.getNeighborhood());
         order.setStatus(OrderStatus.NUEVO);
         order.setOrderDate(LocalDateTime.now());
 

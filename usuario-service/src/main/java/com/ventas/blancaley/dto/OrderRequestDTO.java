@@ -20,8 +20,25 @@ public class OrderRequestDTO {
     @NotBlank (message = "The email field cannot be blank.")
     private String userEmail;
 
-    @NotBlank(message = "La dirección es obligatoria")
-    private String address;
+    @NotBlank (message = "The phone number cannot be blank.")
+    private String phoneNumber;
+
+    @NotBlank (message = "The street address cannot be blank.")
+    private String street;
+
+    @NotBlank (message = "The street number cannot be blank.")
+    private String streetNumber;
+
+    @NotBlank (message = "The city field cannot be blank.")
+    private String city;
+
+    @NotBlank (message = "The state field cannot be blank.")
+    private String state;
+
+    @NotBlank (message = "The zip code number cannot be blank.")
+    private String zipCode;
+
+    private String neighborhood;
 
     @NotNull(message = "There must be at least 1 item.")
     private List<OrderItemRequestDTO> items;
@@ -58,12 +75,60 @@ public class OrderRequestDTO {
         this.items = items;
     }
 
-    public String getAddress() {
-        return address;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getStreetNumber() {
+        return streetNumber;
+    }
+
+    public void setStreetNumber(String streetNumber) {
+        this.streetNumber = streetNumber;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public String getNeighborhood() {
+        return neighborhood;
+    }
+
+    public void setNeighborhood(String neighborhood) {
+        this.neighborhood = neighborhood;
     }
 
     public String getUserEmail() {
@@ -73,4 +138,5 @@ public class OrderRequestDTO {
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
     }
+
 }

@@ -8,19 +8,30 @@ public class OrderResponseDTO {
     private String firstName;
     private String lastName;
     private String userEmail;
-    private String address;
+    private String phoneNumber;
+    private String street;
+    private String streetNumber;
+    private String city;
+    private String state;
+    private String zipCode;
+    private String neighborhood;
     private LocalDateTime orderDate;
     private String status;
     private List<OrderItemResponseDTO> items;
     private Double totalPrice;
 
-    public OrderResponseDTO(Long orderId, String firstName, String lastName, String userEmail, String address, LocalDateTime orderDate,
-                            String status, List<OrderItemResponseDTO> items, Double totalPrice) {
+    public OrderResponseDTO(Long orderId, String firstName, String lastName, String userEmail, String phoneNumber, String street, String streetNumber, String city, String state, String zipCode, String neighborhood, LocalDateTime orderDate, String status, List<OrderItemResponseDTO> items, Double totalPrice) {
         this.orderId = orderId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userEmail = userEmail;
-        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.street = street;
+        this.streetNumber = streetNumber;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.neighborhood = neighborhood;
         this.orderDate = orderDate;
         this.status = status;
         this.items = items;
@@ -62,12 +73,60 @@ public class OrderResponseDTO {
         this.userEmail = userEmail;
     }
 
-    public String getAddress() {
-        return address;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getStreetNumber() {
+        return streetNumber;
+    }
+
+    public void setStreetNumber(String streetNumber) {
+        this.streetNumber = streetNumber;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public String getNeighborhood() {
+        return neighborhood;
+    }
+
+    public void setNeighborhood(String neighborhood) {
+        this.neighborhood = neighborhood;
     }
 
     public LocalDateTime getOrderDate() {

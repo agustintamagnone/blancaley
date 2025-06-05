@@ -14,10 +14,25 @@ public class Order {
     private String firstName;
     private String lastName;
     private String userEmail;
+    private String phoneNumber;
     private LocalDateTime orderDate;
 
     @Column(nullable = false)
-    private String address;
+    private String street;
+
+    @Column(nullable = false)
+    private String streetNumber;
+
+    @Column(nullable = false)
+    private String city;
+
+    @Column (nullable = false)
+    private String state;
+
+    private String neighborhood;
+
+    @Column(nullable = false)
+    private String zipCode;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
@@ -43,12 +58,18 @@ public class Order {
 
     }
 
-    public Order(User user, String firstName, String lastName, String userEmail, String address, LocalDateTime orderDate, OrderStatus status, List<OrderItem> items, Double totalPrice) {
+    public Order(User user, String firstName, String lastName, String userEmail, String phoneNumber, String street, String streetNumber, String city, String state, String neighborhood, String department, String zipCode, LocalDateTime orderDate, OrderStatus status, List<OrderItem> items, Double totalPrice) {
         this.user = user;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userEmail = userEmail;
-        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.street = street;
+        this.streetNumber = streetNumber;
+        this.city = city;
+        this.state = state;
+        this.neighborhood = neighborhood;
+        this.zipCode = zipCode;
         this.orderDate = orderDate;
         this.status = status;
         this.items = items;
@@ -79,6 +100,14 @@ public class Order {
         this.userEmail = userEmail;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -95,12 +124,52 @@ public class Order {
         this.lastName = lastName;
     }
 
-    public String getAddress() {
-        return address;
+    public String getStreet() {
+        return street;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getStreetNumber() {
+        return streetNumber;
+    }
+
+    public void setStreetNumber(String streetNumber) {
+        this.streetNumber = streetNumber;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getNeighborhood() {
+        return neighborhood;
+    }
+
+    public void setNeighborhood(String neighborhood) {
+        this.neighborhood = neighborhood;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 
     public LocalDateTime getOrderDate() {
