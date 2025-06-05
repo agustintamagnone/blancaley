@@ -62,7 +62,8 @@ public class OrderServiceImpl implements OrderService {
 
         return new OrderResponseDTO(
                 order.getOrderId(),
-                order.getUserName(),
+                order.getFirstName(),
+                order.getLastName(),
                 order.getUserEmail(),
                 order.getAddress(),
                 order.getOrderDate(),
@@ -77,15 +78,16 @@ public class OrderServiceImpl implements OrderService {
         User user = userRepository.findByEmail(dto.getUserEmail())
                 .orElseGet(() -> {
                     User newUser = new User();
-                    newUser.setFirstName("Desconocido"); // o podés incluirlo en el DTO
-                    newUser.setLastName("Desconocido");
+                    newUser.setFirstName(dto.getFirstName()); // o podés incluirlo en el DTO
+                    newUser.setLastName(dto.getLastName());
                     newUser.setEmail(dto.getUserEmail());
                     return userRepository.save(newUser);
                 });
 
         Order order = new Order();
         order.setUser(user);
-        order.setUserName(dto.getUserName());
+        order.setFirstName(dto.getFirstName());
+        order.setLastName(dto.getLastName());
         order.setUserEmail(dto.getUserEmail());
         order.setAddress(dto.getAddress());
         order.setStatus(OrderStatus.NUEVO);

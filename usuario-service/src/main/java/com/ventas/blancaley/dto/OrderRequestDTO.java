@@ -10,8 +10,11 @@ public class OrderRequestDTO {
 
     private Long userId;
 
-    @NotBlank(message = "The name of the customer must not be empty.")
-    private String userName;
+    @NotBlank(message = "The first name of the customer must not be empty.")
+    private String firstName;
+
+    @NotBlank(message = "The last name of the customer must not be empty.")
+    private String lastName;
 
     @Email(message = "The email must be valid.")
     @NotBlank (message = "The email field cannot be blank.")
@@ -31,12 +34,20 @@ public class OrderRequestDTO {
         this.userId = userId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public List<OrderItemRequestDTO> getItems() {

@@ -3,7 +3,6 @@
 import { useCart } from "@/components/context/cart-context";
 import { useEffect } from "react";
 
-
 export default function OrderConfirmation() {
 
     const { clearCart } = useCart();

@@ -11,7 +11,8 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
-    private String userName;
+    private String firstName;
+    private String lastName;
     private String userEmail;
     private LocalDateTime orderDate;
 
@@ -42,9 +43,10 @@ public class Order {
 
     }
 
-    public Order(User user, String userName, String userEmail, String address, LocalDateTime orderDate, OrderStatus status, List<OrderItem> items, Double totalPrice) {
+    public Order(User user, String firstName, String lastName, String userEmail, String address, LocalDateTime orderDate, OrderStatus status, List<OrderItem> items, Double totalPrice) {
         this.user = user;
-        this.userName = userName;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.userEmail = userEmail;
         this.address = address;
         this.orderDate = orderDate;
@@ -77,12 +79,20 @@ public class Order {
         this.userEmail = userEmail;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getAddress() {

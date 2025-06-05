@@ -5,7 +5,8 @@ import java.util.List;
 
 public class OrderResponseDTO {
     private Long orderId;
-    private String userName;
+    private String firstName;
+    private String lastName;
     private String userEmail;
     private String address;
     private LocalDateTime orderDate;
@@ -13,10 +14,11 @@ public class OrderResponseDTO {
     private List<OrderItemResponseDTO> items;
     private Double totalPrice;
 
-    public OrderResponseDTO(Long orderId, String userName, String userEmail, String address, LocalDateTime orderDate,
+    public OrderResponseDTO(Long orderId, String firstName, String lastName, String userEmail, String address, LocalDateTime orderDate,
                             String status, List<OrderItemResponseDTO> items, Double totalPrice) {
         this.orderId = orderId;
-        this.userName = userName;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.userEmail = userEmail;
         this.address = address;
         this.orderDate = orderDate;
@@ -36,12 +38,20 @@ public class OrderResponseDTO {
         this.orderId = orderId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getUserEmail() {

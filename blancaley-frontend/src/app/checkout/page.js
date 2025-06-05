@@ -7,7 +7,8 @@ import { useEffect, useState } from "react";
 
 export default function CheckoutPage() {
   const { cartItems, total, clearCart } = useCart();
-  const [userName, setUserName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [address, setAddress] = useState("");
   const router = useRouter();
@@ -16,7 +17,8 @@ export default function CheckoutPage() {
     e.preventDefault();
 
     const order = {
-      userName,
+      firstName,
+      lastName,
       userEmail,
       address,
       items: cartItems,
@@ -85,8 +87,16 @@ export default function CheckoutPage() {
         <input
           type="text"
           placeholder="Nombre"
-          value={userName}
-          onChange={(e) => setUserName(e.target.value)}
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+          required
+          className="w-full border rounded p-2"
+        />
+        <input
+          type="text"
+          placeholder="Apellido"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
           required
           className="w-full border rounded p-2"
         />
