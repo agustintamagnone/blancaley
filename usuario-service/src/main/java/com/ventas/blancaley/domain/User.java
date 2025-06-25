@@ -8,9 +8,11 @@ import java.util.List;
 @Entity
 @Table(name = "users_db")  // <---- esto evita conflicto con palabra reservada
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String firstName;
     private String lastName;
     private String email;

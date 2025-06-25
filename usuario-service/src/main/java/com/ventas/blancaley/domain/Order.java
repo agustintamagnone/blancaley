@@ -2,19 +2,27 @@ package com.ventas.blancaley.domain;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table (name = "orders_db")
+@Table(name = "orders_db")
 public class Order {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
+
     private String firstName;
     private String lastName;
+
+    @Column(nullable = false)
     private String userEmail;
+
+    @Column(nullable = false)
     private String phoneNumber;
+
     private LocalDateTime orderDate;
 
     @Column(nullable = false)
@@ -26,7 +34,7 @@ public class Order {
     @Column(nullable = false)
     private String city;
 
-    @Column (nullable = false)
+    @Column(nullable = false)
     private String state;
 
     private String neighborhood;
@@ -58,7 +66,7 @@ public class Order {
 
     }
 
-    public Order(User user, String firstName, String lastName, String userEmail, String phoneNumber, String street, String streetNumber, String city, String state, String neighborhood, String department, String zipCode, LocalDateTime orderDate, OrderStatus status, List<OrderItem> items, Double totalPrice) {
+    public Order(User user, String firstName, String lastName, String userEmail, String phoneNumber, String street, String streetNumber, String city, String state, String neighborhood, String zipCode, LocalDateTime orderDate, OrderStatus status, List<OrderItem> items, Double totalPrice) {
         this.user = user;
         this.firstName = firstName;
         this.lastName = lastName;

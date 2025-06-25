@@ -1,11 +1,13 @@
 package com.ventas.blancaley.controller;
 
 import com.ventas.blancaley.domain.Order;
+
 import com.ventas.blancaley.dto.OrderRequestDTO;
 import com.ventas.blancaley.dto.OrderResponseDTO;
+
 import com.ventas.blancaley.service.OrderService;
+
 import io.swagger.v3.oas.annotations.Operation;
-import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,12 +22,6 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-//    @PostMapping
-//    public ResponseEntity<Order> createOrder(@RequestBody Order order) {
-//        Order saved = orderService.createOrder(order);
-//        return ResponseEntity.ok(saved);
-//    }
-
     @GetMapping
     @Operation(summary = "Get all orders")
     public ResponseEntity<?> getAllOrders() {
@@ -34,8 +30,8 @@ public class OrderController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Get an order by ID")
-    public ResponseEntity<?> getOrderById(@PathVariable Long id) {
-        return ResponseEntity.ok(orderService.getById(id));
+    public ResponseEntity<OrderResponseDTO> getOrderById(@PathVariable Long id) {
+        return ResponseEntity.ok(orderService.getOrderDTOById(id));
     }
 
     @GetMapping("/{id}/detail")
@@ -46,7 +42,7 @@ public class OrderController {
 
     @PostMapping
     @Operation(summary = "Creates a new order")
-    public ResponseEntity<OrderResponseDTO> responseOrderFromDTO(@RequestBody @Valid OrderRequestDTO requestDTO) {
+    public ResponseEntity<OrderResponseDTO> createOrder(@RequestBody OrderRequestDTO requestDTO) {
         Order saved = orderService.createOrderFromDTO(requestDTO);
         return ResponseEntity.ok(orderService.getOrderDTOById(saved.getOrderId()));
     }

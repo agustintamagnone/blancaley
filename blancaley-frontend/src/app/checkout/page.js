@@ -4,6 +4,7 @@ import { useCart } from "@/components/context/cart-context";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import {CreditCard, Landmark, DollarSign} from "lucide-react";
 
 export default function CheckoutPage() {
   const { cartItems, total, clearCart } = useCart();
@@ -17,11 +18,14 @@ export default function CheckoutPage() {
   const [state, setState] = useState("");
   const [neighborhood, setNeighborhood] = useState("");
   const [zipCode, setZipCode] = useState("");
+
+  const [paymentMethod, setPaymentMethod] = useState("");
+
   const router = useRouter();
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const order = {
       firstName,
       lastName,
@@ -35,33 +39,65 @@ export default function CheckoutPage() {
       zipCode,
       items: cartItems,
       totalPrice: total,
+      paymentMethod: "MERCADOPAGO",
     };
-
+  
     try {
-      // Lógica para enviar el pedido al backend
-      const res = await fetch("http://localhost:8080/blancaley/api/orders", {
+      // Paso 1: Enviar orden al backend
+      const orderRes = await fetch("http://localhost:8080/blancaley/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(order),
       });
-
-      if (res.ok) {
-        localStorage.setItem(
-          "lastConfirmedOrder",
-          JSON.stringify({
-            items: cartItems,
-            totalPrice: total
-          })
-        );
-        clearCart();
-        router.push("/order-confirmation");
+  
+      if (!orderRes.ok) {
+        throw new Error("Error al crear la orden");
       }
+  
+      const createdOrder = await orderRes.json();
+  
+      // Paso 2: Crear preferencia de pago
+      const paymentPayload = {
+        orderId: createdOrder.orderId,
+        items: cartItems.map((item) => ({
+          productName: item.productName,
+          quantity: item.quantity,
+          productPrice: item.productPrice,
+        })),
+      };
+
+      console.log(paymentPayload)
+  
+      const paymentRes = await fetch("http://localhost:8080/blancaley/api/payments/mercadopago", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(paymentPayload),
+      });
+  
+      if (!paymentRes.ok) {
+        throw new Error("Error al generar la preferencia de pago");
+      }
+  
+      const paymentData = await paymentRes.json();
+  
+      // Guardar orden local y limpiar carrito
+      localStorage.setItem(
+        "lastConfirmedOrder",
+        JSON.stringify({
+          items: cartItems,
+          totalPrice: total,
+        })
+      );
+      clearCart();
+  
+      // Redirigir a Mercado Pago
+      window.location.href = paymentData.initPoint;
     } catch (error) {
-      console.error("Error al enviar pedido:", error);
+      console.error("Error en el proceso de pago:", error);
+      alert("Hubo un problema al procesar el pago. Intenta nuevamente.");
     }
   };
-
-  console.log("Cart items:", cartItems);
+  
 
   return (
     <section className="max-w-4xl mx-auto px-4 mt-30 py-12">
@@ -88,6 +124,7 @@ export default function CheckoutPage() {
                 Precio unitario: $
                 {item.productPrice ? item.productPrice.toFixed(2) : "0.00"}
               </p>
+              <p className="text-sm text-gray-600">Costo de Envío:</p>
               <p className="font-medium">
                 Total: $
                 {(item.productPrice && item.quantity
@@ -104,19 +141,17 @@ export default function CheckoutPage() {
         Total del Pedido: ${total ? total.toFixed(2) : "0.00"}
       </h2>
 
-      <h2 className="text-medium font-bold mb-4">
-        Datos del Destinatario
-      </h2>
+      <h2 className="text-lg font-semibold mb-4">Datos de Envío</h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="flex gap-4 mb-4">
+        <div className="flex gap-8 mb-6">
           <input
             type="text"
             placeholder="Nombre"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
-            className="w-1/2 border rounded p-2"
+            className="w-1/2 border border-gray-400 rounded p-2"
           />
           <input
             type="text"
@@ -124,74 +159,75 @@ export default function CheckoutPage() {
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             required
-            className="w-1/2 border rounded p-2"
+            className="w-1/2 border border-gray-400 rounded p-2"
           />
         </div>
-        <div className="flex gap-4 mb-4">
+        <div className="flex gap-8 mb-6">
           <input
             type="email"
             placeholder="Correo electrónico"
             value={userEmail}
             onChange={(e) => setUserEmail(e.target.value)}
             required
-            className="w-full border rounded p-2"
+            className="w-full border border-gray-400 rounded p-2"
           />
           <input
             type="text"
-            placeholder="Numero de Telefono"
+            placeholder="Número de Teléfono"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
             required
-            className="w-full border rounded p-2"
+            className="w-full border border-gray-400 rounded p-2"
           />
         </div>
-        <div className="flex gap-4 mb-4">
+        <div className="flex gap-8 mb-6">
           <input
             placeholder="Calle"
             value={street}
             onChange={(e) => setStreet(e.target.value)}
             required
-            className="w-full border rounded p-2"
+            className="w-full border border-gray-400 rounded p-2"
           />
           <input
             placeholder="Numero de Calle"
             value={streetNumber}
             onChange={(e) => setStreetNumber(e.target.value)}
             required
-            className="w-full border rounded p-2"
+            className="w-full border border-gray-400 rounded p-2"
           />
         </div>
-        <div className="flex gap-4 mb-4">
+        <div className="flex gap-8 mb-6">
           <input
             placeholder="Ciudad"
             value={city}
             onChange={(e) => setCity(e.target.value)}
             required
-            className="w-full border rounded p-2"
+            className="w-full border border-gray-400 rounded p-2"
           />
           <input
             placeholder="Provincia"
             value={state}
             onChange={(e) => setState(e.target.value)}
             required
-            className="w-full border rounded p-2"
+            className="w-full border border-gray-400 rounded p-2"
           />
         </div>
-        <div className="flex gap-4 mb-4">
+        <div className="flex gap-8 mb-6">
           <input
-            placeholder="Codigo Postal"
+            placeholder="Código Postal"
             value={zipCode}
             onChange={(e) => setZipCode(e.target.value)}
             required
-            className="w-full border rounded p-2"
+            className="w-full border border-gray-400 rounded p-2"
           />
           <input
             placeholder="Barrio (Opcional)"
             value={neighborhood}
             onChange={(e) => setNeighborhood(e.target.value)}
-            className="w-full border rounded p-2"
+            className="w-full border border-gray-400 rounded p-2"
           />
         </div>
+
 
         <button
           type="submit"

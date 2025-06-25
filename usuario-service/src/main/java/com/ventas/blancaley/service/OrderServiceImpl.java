@@ -1,17 +1,20 @@
 package com.ventas.blancaley.service;
 
 import com.ventas.blancaley.domain.*;
+
 import com.ventas.blancaley.dto.OrderItemResponseDTO;
 import com.ventas.blancaley.dto.OrderRequestDTO;
 import com.ventas.blancaley.dto.OrderResponseDTO;
+
 import com.ventas.blancaley.repository.OrderRepository;
 import com.ventas.blancaley.repository.ProductRepository;
 import com.ventas.blancaley.repository.UserRepository;
-import jakarta.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -24,16 +27,6 @@ public class OrderServiceImpl implements OrderService {
         this.orderRepository = orderRepository;
         this.productRepository = productRepository;
         this.userRepository = userRepository;
-    }
-
-    @Override
-    @Transactional
-    public Order createOrder(Order order) {
-        // Asegurar que cada item tenga la relación con el pedido
-        for (OrderItem item : order.getItems()) {
-            item.setOrder(order);
-        }
-        return orderRepository.save(order);
     }
 
     @Override
@@ -84,7 +77,7 @@ public class OrderServiceImpl implements OrderService {
         User user = userRepository.findByEmail(dto.getUserEmail())
                 .orElseGet(() -> {
                     User newUser = new User();
-                    newUser.setFirstName(dto.getFirstName()); // o podés incluirlo en el DTO
+                    newUser.setFirstName(dto.getFirstName());
                     newUser.setLastName(dto.getLastName());
                     newUser.setEmail(dto.getUserEmail());
                     return userRepository.save(newUser);
@@ -128,5 +121,4 @@ public class OrderServiceImpl implements OrderService {
 
         return orderRepository.save(order);
     }
-
 }

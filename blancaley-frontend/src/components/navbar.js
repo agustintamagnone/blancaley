@@ -37,13 +37,13 @@ export default function Navbar() {
               <a href="http://localhost:3000">Inicio</a>
             </li>
             <li>
-              <a href="#products">Productos</a>
+              <a href="http://localhost:3000/#products">Productos</a>
             </li>
             <li>
-              <a href="#empresa">Empresa</a>
+              <a href="http://localhost:3000/#empresa">Empresa</a>
             </li>
             <li>
-              <a href="#contacto">Contacto</a>
+              <a href="http://localhost:3000/#contacto">Contacto</a>
             </li>
           </ul>
 
