@@ -1,5 +1,5 @@
 🛠️ Descripción del Proyecto (Español)
-Blancaley es una aplicación de e-commerce desarrollada como sistema de gestión de pedidos y usuarios, diseñada para una pinturería. El proyecto se basa en una arquitectura de microservicios, separando la lógica de usuarios y productos/pedidos en servicios independientes para facilitar la escalabilidad, el mantenimiento y el despliegue modular.
+Blancaley es una aplicación de e-commerce desarrollada como sistema de gestión de pedidos y usuarios, diseñada para una pinturería. El proyecto se basa en una arquitectura en capas, separando la lógica de usuarios y productos/pedidos en servicios independientes para facilitar la escalabilidad, el mantenimiento y el despliegue modular.
 
 🚀 Tecnologías Utilizadas
 Java 23
@@ -18,7 +18,7 @@ Lombok
 
 Programación orientada a interfaces y buenas prácticas de diseño SOLID
 
-Arquitectura de microservicios
+Arquitectura en capas
 
 📦 Módulos del sistema
 usuario-service: gestión de usuarios, registro y autenticación.
@@ -27,7 +27,7 @@ order-service: gestión de pedidos y cálculo de totales.
 
 product-service: gestion de productos y catalogo.
 
-Cada microservicio tiene su propia API REST documentada con Swagger, y una base de datos aislada para mayor independencia.
+Cada capa tiene su propia API REST documentada con Swagger, y una base de datos aislada para mayor independencia.
 
 ## 🛒 Funcionalidades
 
@@ -41,7 +41,7 @@ Autor: Agustin Tamagnone
 
 
 🛠️ Project Description (English)
-Blancaley is an e-commerce web application built to manage orders and users for a paint store. The project follows a microservices architecture, separating the logic of user management and order/product handling into independent services to ensure scalability, maintainability, and modular deployment.
+Blancaley is an e-commerce web application built to manage orders and users for a paint store. The project follows a layer architecture, separating the logic of user management and order/product handling into independent services to ensure scalability, maintainability, and modular deployment.
 
 🚀 Technologies Used
 Java 23
@@ -60,7 +60,7 @@ Lombok
 
 Interface-based programming and SOLID principles
 
-Microservices architecture
+Layer architecture
 
 📦 System Modules
 usuario-service: handles user registration, authentication, and profile data.
@@ -69,7 +69,7 @@ order-service: manages orders, and price calculations.
 
 product-service: manages products and catalog.
 
-Each microservice exposes its own REST API, documented automatically with Swagger, and uses its own database schema to promote loose coupling.
+Each layer exposes its own REST API, documented automatically with Swagger, and uses its own database schema to promote loose coupling.
 
 ## 🛒 Features
 
