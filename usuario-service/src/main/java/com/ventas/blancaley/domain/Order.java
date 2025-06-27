@@ -45,6 +45,9 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus paymentStatus;
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<OrderItem> items;
@@ -66,7 +69,7 @@ public class Order {
 
     }
 
-    public Order(User user, String firstName, String lastName, String userEmail, String phoneNumber, String street, String streetNumber, String city, String state, String neighborhood, String zipCode, LocalDateTime orderDate, OrderStatus status, List<OrderItem> items, Double totalPrice) {
+    public Order(User user, String firstName, String lastName, String userEmail, String phoneNumber, String street, String streetNumber, String city, String state, String neighborhood, String zipCode, LocalDateTime orderDate, OrderStatus status, PaymentStatus paymentStatus, List<OrderItem> items, Double totalPrice) {
         this.user = user;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -79,6 +82,7 @@ public class Order {
         this.neighborhood = neighborhood;
         this.zipCode = zipCode;
         this.orderDate = orderDate;
+        this.paymentStatus = paymentStatus;
         this.status = status;
         this.items = items;
         this.totalPrice = totalPrice;
@@ -194,6 +198,14 @@ public class Order {
 
     public void setStatus(OrderStatus status) {
         this.status = status;
+    }
+
+    public PaymentStatus getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(PaymentStatus paymentStatus) {
+        this.paymentStatus = paymentStatus;
     }
 
     public List<OrderItem> getItems() {

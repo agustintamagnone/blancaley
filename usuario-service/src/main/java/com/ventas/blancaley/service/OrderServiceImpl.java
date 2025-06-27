@@ -11,9 +11,12 @@ import com.ventas.blancaley.repository.ProductRepository;
 import com.ventas.blancaley.repository.UserRepository;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -96,6 +99,7 @@ public class OrderServiceImpl implements OrderService {
         order.setZipCode(dto.getZipCode());
         order.setNeighborhood(dto.getNeighborhood());
         order.setStatus(OrderStatus.NUEVO);
+        order.setPaymentStatus(PaymentStatus.PENDIENTE);
         order.setOrderDate(LocalDateTime.now());
 
         List<OrderItem> items = dto.getItems().stream().map(itemDto -> {
@@ -121,4 +125,41 @@ public class OrderServiceImpl implements OrderService {
 
         return orderRepository.save(order);
     }
+
+    @Override
+    public void procesarNotificacionDePago(Map<String, Object> payload) {
+        String tipo = (String) payload.get("type");
+
+        if ("payment".equals(tipo)) {
+            Map<String, Object> data = (Map<String, Object>) payload.get("data");
+            String paymentId = data.get("id").toString();
+
+            // Llamado a la API de MP para obtener detalles del pago
+            RestTemplate restTemplate = new RestTemplate();
+            String accessToken = "${mercadopago.access-token}";
+            String url = "https://api.mercadopago.com/v1/payments/" + paymentId + "?access_token=" + accessToken;
+
+            ResponseEntity<Map> response = restTemplate.getForEntity(url, Map.class);
+            Map<String, Object> paymentInfo = response.getBody();
+
+            String externalReference = (String) paymentInfo.get("external_reference");
+            String status = (String) paymentInfo.get("status"); // approved, pending, rejected, etc.
+
+            Order order = orderRepository.findById(Long.parseLong(externalReference)).orElseThrow();
+
+            switch (status) {
+                case "approved":
+                    order.setPaymentStatus(PaymentStatus.COMPLETADO);
+                    break;
+                case "pending":
+                    order.setPaymentStatus(PaymentStatus.PENDIENTE);
+                    break;
+                default:
+                    order.setPaymentStatus(PaymentStatus.FALLIDO);
+            }
+
+            orderRepository.save(order);
+        }
+    }
+
 }
