@@ -12,7 +12,7 @@ export default function Home() {
     <div className="home-bg bg-cover bg-center min-h-screen">
       <div className="">
         {/* ------------ Hero Section ------------ */}
-        <div className="pt-10">
+        <div className="pt-30 md:pt-10">
           <Hero />
         </div>
         <div className="pt-10">

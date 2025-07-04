@@ -2,18 +2,27 @@ package com.ventas.blancaley.domain;
 
 import jakarta.persistence.*;
 
+
 @Entity
 @Table(name = "products_db")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
+
     private String productName;
+
+    @Column(length = 1000)
     private String productDescription;
+
     private Double productPrice;
     private Integer productStock;
     private String productColor;
-    private String productCategory;
+
+    @Enumerated(EnumType.STRING)
+    private ProductCategory productCategory;
+
+    private String productType;
 
     @Column(name = "image_url")
     private String imageUrl;
@@ -22,7 +31,7 @@ public class Product {
 
     }
 
-    public Product(Long productId, String productName, String productDescription, Double productPrice, Integer productStock, String productColor, String productCategory, String imageUrl) {
+    public Product(Long productId, String productName, String productDescription, Double productPrice, Integer productStock, String productColor, ProductCategory productCategory, String productType, String imageUrl) {
         this.productId = productId;
         this.productName = productName;
         this.productDescription = productDescription;
@@ -30,6 +39,7 @@ public class Product {
         this.productStock = productStock;
         this.productColor = productColor;
         this.productCategory = productCategory;
+        this.productType = productType;
         this.imageUrl = imageUrl;
     }
 
@@ -81,12 +91,20 @@ public class Product {
         this.productColor = productColor;
     }
 
-    public String getProductCategory() {
+    public ProductCategory getProductCategory() {
         return productCategory;
     }
 
-    public void setProductCategory(String productCategory) {
+    public void setProductCategory(ProductCategory productCategory) {
         this.productCategory = productCategory;
+    }
+
+    public String getProductType() {
+        return productType;
+    }
+
+    public void setProductType(String productType) {
+        this.productType = productType;
     }
 
     public String getImageUrl() {

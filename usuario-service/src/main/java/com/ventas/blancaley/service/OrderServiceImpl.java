@@ -49,7 +49,7 @@ public class OrderServiceImpl implements OrderService {
         List<OrderItemResponseDTO> itemDTOs = order.getItems().stream().map(item -> {
             Product product = productRepository.findById(item.getProductId())
                     .orElseThrow(() -> new RuntimeException("Product not found: " + item.getProductId()));
-            return new OrderItemResponseDTO(product.getProductName(), product.getProductPrice(), item.getQuantity());
+            return new OrderItemResponseDTO(product.getProductName(), product.getProductType(), product.getProductPrice(), item.getQuantity());
         }).toList();
 
         Double total = itemDTOs.stream()

@@ -6,13 +6,13 @@ import { Button } from "./ui/button";
 
 export default function Banner () {
     return (
-        <section className="relative w-full flex md:h-[30vh] overflow-hidden bg-gray-300 border border-orange-400">
+        <section className="relative w-full flex py-12 px-12 md:h-[30vh] overflow-hidden bg-gray-300 border border-orange-400">
             <div className="max-w-7xl mx-auto px-4 flex justify-center items-center">
                 {/* Contenido */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-15 ps-2.5 justify-center items-center">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-15 ps-2.5 justify-center items-center text-center md:text-left">
                     {/* ITEM 1*/}
                     <div className="flex flex-col justify-between md:flex-row">
-                        <div className="flex items-center md:mr-5">
+                        <div className="flex items-center justify-center md:justify-start md:mr-5">
                             <CreditCard color="#f05b40" size={40}/>
                         </div>
                         <div className="flex flex-col">
@@ -22,7 +22,7 @@ export default function Banner () {
                     </div>
                     {/* ITEM 2*/}
                     <div className="flex flex-col md:flex-row">
-                        <div className="flex items-center md:mr-5">
+                        <div className="flex items-center justify-center md:justify-start md:mr-5">
                             <Truck color="#f05b40" size={40}/>
                         </div>
                         <div className="flex flex-col">
@@ -32,7 +32,7 @@ export default function Banner () {
                     </div>
                     {/* ITEM 3*/}
                     <div className="flex flex-col md:flex-row flex-1/2">
-                        <div className="flex items-center md:mr-5">
+                        <div className="flex items-center justify-center md:justify-start md:mr-5">
                             <PaintbrushVertical color="#f05b40" size={40}/>
                         </div>
                         <div className="flex flex-col">

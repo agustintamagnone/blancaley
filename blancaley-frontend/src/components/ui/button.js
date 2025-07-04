@@ -8,7 +8,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-orange-500 text-white font-bold hover:bg-orange-500/80 transition ease-in-out duration-500",
+        default: "bg-orange-500 text-white md:text-xs xl:text-sm font-bold hover:bg-orange-500/80 transition ease-in-out duration-500",
         primary: "bg-white text-orange-500 border border-orange-500 font-bold hover:text-white hover:bg-orange-500/80 transition easi-in-out duration-500",
         secondary:
           "bg-orange-500 text-white font-bold hover:bg-white hover:text-orange-500 hover:border hover:border-orange-500 transition ease-in-out duration-500",

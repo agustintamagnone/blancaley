@@ -2,11 +2,13 @@ package com.ventas.blancaley.dto;
 
 public class OrderItemResponseDTO {
     private String productName;
+    private String productType;
     private Double unitPrice;
     private Integer quantity;
 
-    public OrderItemResponseDTO(String productName, Double unitPrice, Integer quantity) {
+    public OrderItemResponseDTO(String productName, String productType, Double unitPrice, Integer quantity) {
         this.productName = productName;
+        this.productType = productType;
         this.unitPrice = unitPrice;
         this.quantity = quantity;
     }
@@ -21,6 +23,10 @@ public class OrderItemResponseDTO {
     public void setProductName(String productName) {
         this.productName = productName;
     }
+
+    public String getProductType() { return productType; }
+
+    public void setProductType(String productType) { this.productType = productType; }
 
     public Double getUnitPrice() {
         return unitPrice;
@@ -37,4 +43,6 @@ public class OrderItemResponseDTO {
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
+
+
 }

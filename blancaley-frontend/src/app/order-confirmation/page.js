@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "@/components/context/cart-context";
-import { useSearchParams } from "next/navigation";
-
+import PaymentDetails from "@/components/payment-details";
 
 export default function OrderConfirmation() {
   const [confirmedItems, setConfirmedItems] = useState([]);
@@ -23,13 +22,6 @@ export default function OrderConfirmation() {
   
     clearCart(); // limpia visualmente el carrito
   }, []);
-
-  const searchParams = useSearchParams();
-  const paymentId = searchParams.get("payment_id");
-  const paymentStatus = searchParams.get("status");
-  const merchantOrderId = searchParams.get("merchant_order_id");
-
-  
 
   return (
     <section className="min-h-screen pt-50 pb-20 flex flex-col items-center justify-center bg-white px-4 py-">
@@ -65,14 +57,10 @@ export default function OrderConfirmation() {
             <span>${Number(confirmedTotal || 0).toFixed(2)}</span>
           </div>
         </div>
-        
-        {paymentId && (
-          <div className="mt-6 text-sm text-gray-600">
-            <p><strong>ID de Pago:</strong> {paymentId}</p>
-            <p><strong>Estado del Pago:</strong> {paymentStatus}</p>
-            <p><strong>ID de Orden (Mercado Pago):</strong> {merchantOrderId}</p>
-          </div>
-        )}
+
+        <Suspense fallback={null}>
+          <PaymentDetails />
+        </Suspense>
 
         <Link
           href="/"
