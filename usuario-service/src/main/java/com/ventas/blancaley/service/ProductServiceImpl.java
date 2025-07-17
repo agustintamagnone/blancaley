@@ -1,9 +1,11 @@
 package com.ventas.blancaley.service;
 
 import com.ventas.blancaley.domain.Product;
+import com.ventas.blancaley.domain.ProductCategory;
 import com.ventas.blancaley.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,9 +24,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getAllProducts() {
-        return productRepository.findAll();
+        List<Product> allProducts = new ArrayList<>();
+        allProducts.addAll(productRepository.findByProductCategoryOrderByProductOrderAsc(ProductCategory.PINTURA));
+        allProducts.addAll(productRepository.findByProductCategoryOrderByProductOrderAsc(ProductCategory.MASILLA));
+        allProducts.addAll(productRepository.findByProductCategoryOrderByProductOrderAsc(ProductCategory.MEMBRANA_LIQUIDA));
+        return allProducts;
     }
-
     @Override
     public Product getProductById(Long id) {
         return productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found by id: " + id));

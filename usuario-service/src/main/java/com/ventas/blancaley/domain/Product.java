@@ -12,6 +12,9 @@ public class Product {
 
     private String productName;
 
+    @Column(name = "product_order")
+    private Integer productOrder;
+
     @Column(length = 1000)
     private String productDescription;
 

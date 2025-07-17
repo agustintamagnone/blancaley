@@ -45,10 +45,10 @@ export default function ProductList() {
           <h3 className="text-3xl font-bold mb-6 text-center text-orange-500">
             {formatCategory(category)}
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 items-stretch text-center md:text-left">
             {productos.map((product) => (
               <div key={product.productId} className="flex flex-col justify-between h-full border p-4 rounded shadow-sm bg-white">
-                <div className="flex justify-center items-center h-60 mb-4">
+                <div className="flex justify-center items-center h-56 mb-4">
                   <Image
                     src={`/${product.imageUrl}`}
                     alt={product.productName}
